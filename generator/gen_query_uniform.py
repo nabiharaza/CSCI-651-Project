@@ -1,6 +1,6 @@
 import random
 
-path_query = "query.txt"
+path_query = "../client/query.txt"
 num_query = 1000000
 
 len_key = 16

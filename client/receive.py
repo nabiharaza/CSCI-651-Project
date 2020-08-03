@@ -5,12 +5,11 @@ import thread
 
 from nc_config import *
 
-NC_PORT = 8888
-CLIENT_IP = "10.0.0.1"
-SERVER_IP = "10.0.0.2"
-CONTROLLER_IP = "10.0.0.3"
+NC_PORT = 8889
+CLIENT_IP = "0.0.0.0"
+SERVER_IP = "0.0.0.0"
+CONTROLLER_IP = "0.0.0.0"
 path_reply = "reply.txt"
-
 len_key = 16
 
 counter = 0

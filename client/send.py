@@ -6,9 +6,9 @@ import thread
 from nc_config import *
 
 NC_PORT = 8888
-CLIENT_IP = "10.0.0.1"
-SERVER_IP = "10.0.0.2"
-CONTROLLER_IP = "10.0.0.3"
+CLIENT_IP = "0.0.0.0"
+SERVER_IP = "0.0.0.0"
+CONTROLLER_IP = "0.0.0.0"
 path_query = "query.txt"
 query_rate = 1000
 

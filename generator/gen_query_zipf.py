@@ -1,7 +1,7 @@
 import random
 import math
 
-path_query = "query.txt"
+path_query = "../client/query.txt"
 num_query = 1000000
 zipf = 0.99
 
