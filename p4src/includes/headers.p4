@@ -51,10 +51,12 @@ header_type udp_t {
     }
 }
 header udp_t udp;
-
+/*
+    Netcache headers
+*/
 header_type nc_hdr_t {
     fields {
-        op: 8;
+        operation: 8;
         key: 128;
     }
 }
@@ -70,15 +72,3 @@ header_type nc_load_t {
 }
 header nc_load_t nc_load;
 
-/*
-    The headers for value are defined in value.p4
-    k = 1, 2, ..., 8
-    header_type nc_value_{k}_t {
-        fields {
-            value_{k}_1: 32;
-            value_{k}_2: 32;
-            value_{k}_3: 32;
-            value_{k}_4: 32;
-        }
-    }
-*/

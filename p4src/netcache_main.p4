@@ -3,20 +3,19 @@
 #include "includes/checksum.p4"
 
 #include "cache.p4"
-#include "heavy_hitter.p4"
 #include "value.p4"
 #include "ipv4.p4"
 #include "ethernet.p4"
 
 #define NC_PORT 8888
 #define NUM_CACHE 128
-#define NC_READ_REQUEST     0
-#define NC_READ_REPLY       1
-#define NC_HOT_READ_REQUEST 2
-#define NC_WRITE_REQUEST    4
-#define NC_WRITE_REPLY      5
-#define NC_UPDATE_REQUEST   8
-#define NC_UPDATE_REPLY     9
+#define READ_REQUEST     0
+#define READ_REPLY       1
+#define HOT_READ_REQUEST 2
+#define WRITE_REQUEST    4
+#define WRITE_REPLY      5
+#define UPDATE_REQUEST   8
+#define UPDATE_REPLY     9
 
 control ingress {
     process_cache();
@@ -38,10 +37,10 @@ metadata nc_cache_md_t nc_cache_md;
 control process_cache {
     apply (check_cache_exist);
     if (nc_cache_md.cache_exist == 1) {
-        if (nc_hdr.op == NC_READ_REQUEST) {
+        if (nc_hdr.operation == READ_REQUEST) {
             apply (check_cache_valid);
         }
-        else if (nc_hdr.op == NC_UPDATE_REPLY) {
+        else if (nc_hdr.operation == UPDATE_REPLY) {
             apply (set_cache_valid);
         }
     }
@@ -75,7 +74,6 @@ table check_cache_valid {
     actions {
         check_cache_valid_act;
     }
-    //default_action: check_cache_valid_act;
 }
 //
 action set_cache_valid_act() {
@@ -85,19 +83,8 @@ table set_cache_valid {
     actions {
         set_cache_valid_act;
     }
-    //default_action: set_cache_valid_act;
 }
-
-
-
-
-
-
-
-
+// Egress the data packet
 control egress {
-    //if (nc_hdr.op == NC_READ_REQUEST and nc_cache_md.cache_exist != 1) {
-    //    heavy_hitter();
-    //}
     apply (ethernet_set_mac);
 }

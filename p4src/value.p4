@@ -105,14 +105,14 @@
 
 #define CONTROL_PROCESS_VALUE(i) \
     control process_value_##i { \
-        if (nc_hdr.op == NC_READ_REQUEST and nc_cache_md.cache_valid == 1) { \
+        if (nc_hdr.operation == READ_REQUEST and nc_cache_md.cache_valid == 1) { \
             apply (add_value_header_##i); \
             apply (read_value_##i##_1); \
             apply (read_value_##i##_2); \
             apply (read_value_##i##_3); \
             apply (read_value_##i##_4); \
         } \
-        else if (nc_hdr.op == NC_UPDATE_REPLY and nc_cache_md.cache_exist == 1) { \
+        else if (nc_hdr.operation == UPDATE_REPLY and nc_cache_md.cache_exist == 1) { \
             apply (write_value_##i##_1); \
             apply (write_value_##i##_2); \
             apply (write_value_##i##_3); \
@@ -173,7 +173,7 @@ table reply_read_hit_before {
 action reply_read_hit_after_act() {
     modify_field (ipv4.srcAddr, reply_read_hit_info_md.ipv4_dstAddr);
     modify_field (ipv4.dstAddr, reply_read_hit_info_md.ipv4_srcAddr);
-    modify_field (nc_hdr.op, NC_READ_REPLY);
+    modify_field (nc_hdr.operation, READ_REPLY);
 }
 
 table reply_read_hit_after {
@@ -183,7 +183,7 @@ table reply_read_hit_after {
 }
 
 control process_value {    
-    if (nc_hdr.op == NC_READ_REQUEST and nc_cache_md.cache_valid == 1) {
+    if (nc_hdr.operation == NC_READ_REQUEST and nc_cache_md.cache_valid == 1) {
         apply (reply_read_hit_before);
     }
     process_value_1();
@@ -194,7 +194,7 @@ control process_value {
     process_value_6();
     process_value_7();
     process_value_8();
-    if (nc_hdr.op == NC_READ_REQUEST and nc_cache_md.cache_valid == 1) {
+    if (nc_hdr.operation == READ_REQUEST and nc_cache_md.cache_valid == 1) {
         apply (reply_read_hit_after);
     }
 }
