@@ -204,7 +204,7 @@
             "id": 5,
             "fields": [
                 [
-                    "operation",
+                    "op",
                     8
                 ],
                 [
