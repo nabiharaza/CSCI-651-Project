@@ -183,7 +183,7 @@ table reply_read_hit_after {
 }
 
 control process_value {    
-    if (nc_hdr.operation == NC_READ_REQUEST and nc_cache_md.cache_valid == 1) {
+    if (nc_hdr.operation == READ_REQUEST and nc_cache_md.cache_valid == 1) {
         apply (reply_read_hit_before);
     }
     process_value_1();
